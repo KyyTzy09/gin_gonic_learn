@@ -19,6 +19,6 @@ func SetupRouter() *gin.Engine {
 			"message": "Server is running",
 		})
 	})
-	
+
 	return r
 }

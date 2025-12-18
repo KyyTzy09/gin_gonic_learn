@@ -21,7 +21,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: gin_gonic_learn_api
+    container_name: gin_gonic_learn
     environment:
       APP_NAME: "Gin Gonic Learn"
       APP_ENV: production

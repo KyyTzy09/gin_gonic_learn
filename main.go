@@ -10,8 +10,12 @@ import (
 func main() {
 	config.LoadConfig()
 
-	r := router.SetupRouter()
+  config.ConnectDatabase()
+  
+  config.RunMigration()
 
+	r := router.SetupRouter()
+  
 	// Start server
 	port := config.AppConfig.App.Port
 	log.Printf("Starting %s server on port %s", config.AppConfig.App.Name, port)
