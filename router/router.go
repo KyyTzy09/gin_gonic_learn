@@ -15,6 +15,7 @@ func SetupRouter() *gin.Engine {
 	r := gin.Default()
 
 	r.Use(middleware.CORSMiddleware())
+	r.Use(middleware.ErrorHandler())
 
 	r.GET("/health", func(c *gin.Context) {
 		c.JSON(200, gin.H{
