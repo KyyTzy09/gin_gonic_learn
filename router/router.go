@@ -2,6 +2,7 @@ package router
 
 import (
 	"gin-01/config"
+	"gin-01/middleware"
 
 	"github.com/gin-gonic/gin"
 )
@@ -12,6 +13,8 @@ func SetupRouter() *gin.Engine {
 	}
 
 	r := gin.Default()
+
+	r.Use(middleware.CORSMiddleware())
 
 	r.GET("/health", func(c *gin.Context) {
 		c.JSON(200, gin.H{

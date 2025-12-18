@@ -47,7 +47,7 @@ func LoadConfig() {
 
 	AppConfig = &Config{
 		App: AppConfigType{
-			Name: getEnv("APP_NAME", "Test CRUD API"),
+			Name: getEnv("APP_NAME", "Gin Gonic Learn"),
 			Env:  getEnv("APP_ENV", "development"),
 			Port: getEnv("APP_PORT", "8080"),
 		},
@@ -61,7 +61,7 @@ func LoadConfig() {
 			Timezone: getEnv("DB_TIMEZONE", "Asia/Jakarta"),
 		},
 		JWT: JWTConfig{
-			Secret:      getEnv("JWT_SECRET", "your-secret-key"),
+			Secret:      getEnv("JWT_SECRET", "suifhs8fgsigsigfseuih"),
 			ExpireHours: expireHours,
 		},
 	}
