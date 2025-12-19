@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"gin-01/config"
-	"gin-01/router"
+	"gin-01/routes"
 	"log"
 )
 
@@ -11,8 +11,7 @@ func main() {
 	config.LoadConfig()
 
   config.ConnectDatabase()
-  
-  config.RunMigration()
+
 
 	r := router.SetupRouter()
   
