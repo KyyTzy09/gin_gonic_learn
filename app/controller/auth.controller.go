@@ -10,6 +10,7 @@ import (
 
 type AuthController interface {
 	Register(c *gin.Context)
+	Login(c *gin.Context)
 }
 
 type authController struct {
@@ -35,4 +36,20 @@ func (ctrl *authController) Register(c *gin.Context) {
 	}
 
 	helper.CreatedResponse(c, "user created successfully", data)
+}
+func (ctrl *authController) Login(c *gin.Context) {
+	var req request.LoginRequest
+
+	if err := c.ShouldBindJSON(&req); err != nil {
+		helper.ValidationErrorResponse(c, err.Error())
+		return
+	}
+
+	access_token, err := ctrl.authService.Login(req)
+	if err != nil {
+		helper.ErrorResponse(c, 500, "login failed", err.Error())
+		return
+	}
+
+	helper.SuccessResponse(c, "login successfully", access_token)
 }

@@ -11,6 +11,7 @@ import (
 
 type AuthService interface {
 	Register(req request.RegisterRequest) (any, error)
+	Login(req request.LoginRequest) (string, error)
 }
 
 type authService struct {
@@ -43,4 +44,26 @@ func (s *authService) Register(req request.RegisterRequest) (any, error) {
 	}
 
 	return &user, nil
+}
+
+func (s *authService) Login(req request.LoginRequest) (string, error) {
+	var existingUser *entity.UserEntity
+
+	if err := s.db.First(&existingUser, "email = ?", req.Email).Error; err != nil {
+		if err == gorm.ErrRecordNotFound {
+			return "", errors.New("user is not registered")
+		}
+		return "", err
+	}
+
+	if err := helper.ComparePassword(req.Password, *existingUser.Password); err != nil {
+		return "", errors.New("incorrect password")
+	}
+
+	access_token, err := helper.GenerateToken(existingUser.UserId, existingUser.Email, "USER")
+	if err != nil {
+		return "", errors.New("failed to generate token")
+	}
+
+	return access_token, nil
 }
